@@ -54,13 +54,10 @@ class Graph:
 
 # Create a graph given in
 # the above diagram
+edges = [(0, 1), (0, 2), (1, 2), (2, 0), (2, 3), (3, 3)]
 g = Graph()
-g.addEdge(0, 1)
-g.addEdge(0, 2)
-g.addEdge(1, 2)
-g.addEdge(2, 0)
-g.addEdge(2, 3)
-g.addEdge(3, 3)
+for edge in edges:
+    g.addEdge(edge[0], edge[1])
 
 print("Following is Breadth First Traversal"
       " (starting from vertex 2)")
