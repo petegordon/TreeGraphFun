@@ -13,7 +13,6 @@ class Graph:
     def BreadthSearchFirst(self, node_id_v):
 
         # Mark all the vertices as not visited
-        self.allNodes = []
         visited = [False] * (len(self.allNodes))
 
         # Create a queue for BFS
@@ -23,22 +22,25 @@ class Graph:
         # visited and enqueue it
         queue.append(node_id_v)
         visited[node_id_v] = True
-
+        result = []
         while queue:
 
             # Dequeue a vertex from
             # queue and print it
             s = queue.pop(0)
             print(s, end=" ")
+            result.append(s)
 
             # Get all adjacent vertices of the
             # dequeued vertex s. If a adjacent
             # has not been visited, then mark it
             # visited and enqueue it
-            for i in self.allNodes[node_id_v]:
+            for i in self.allNodes[s]:
                 if visited[i] == False:
                     queue.append(i)
                     visited[i] = True
+
+        return result
 
 
 class DAGTree(Graph):
@@ -61,7 +63,7 @@ class GraphNode:
     def __init__(self, id):
         self.id = id
         self.name = "node_"+str(id)
-        self.edges = []
+        self.nodeEdges = []
 
 
 class DAGNode(GraphNode):
@@ -95,7 +97,8 @@ class DAGNode(GraphNode):
             return child.findNode(self.name)
 
 
-edges = [(1, 2), (2, 8), (4, 10), (5, 9), (6, 10), (7, 9)]
+#edges = [(1, 2), (2, 8), (4, 10), (5, 9), (6, 10), (7, 9)]
+edges = [(0, 1), (0, 2), (1, 2), (2, 0), (2, 3), (3, 3)]
 nodes = dict()
 graph = Graph()
 for edge in edges:
@@ -109,4 +112,11 @@ for count in range(max(nodes.keys())):
     if count not in nodes.keys():
         nodes[count] = -1
 
+print(edges)
 print(nodes)
+print(graph.allNodes)
+
+print('\n')
+result = graph.BreadthSearchFirst(2)
+print('\n')
+print(result)
